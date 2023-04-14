@@ -588,7 +588,7 @@ def text_handler(update, context):
     global RahnamayeRobot
     global YesSendit_posht
     global NoDontSendit_posht
-    global password_admin
+    global ADMIN_PASSWORD
     global users_count
     global send_to_all
     global global_message
@@ -617,7 +617,7 @@ def text_handler(update, context):
                 print(time_sleep)
                 time.sleep(time_sleep)
 
-        if user_message == password_admin:
+        if user_message == ADMIN_PASSWORD:
             owenerID = chat_id
             context.bot.sendMessage(chat_id=chat_id, text='Welcome boss' + '💪')
             admin_pannel(update, context)
