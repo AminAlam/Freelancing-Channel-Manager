@@ -1,59 +1,18 @@
 # ##################################################################################################################
 #
-# Coded by Amin Alam.
-# http://ee.sharif.ir/~amin
-# Use of the following code is free for everyone :) 
-# Enjoy!
-# Please if this code was useful to you star this repository on my Github or indorse me on LinkedIn
-# Github: https://github.com/MohammadAminAlamalhoda
-# LinkedIn: https://www.linkedin.com/in/mohammadamin-alamalhoda-765702168
+# Please left a star on github if you like this project =)
+#                       github.com/AminAlam
 #
 # ##################################################################################################################
 
-import logging
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
-from telegram import Bot, ChatAction, ChatMember, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, ParseMode
-import os
-import time
-import datetime
-from os.path import join as pjoin
+from configs import *
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# API, channels and IDs
-BOT_API = "BOT_API"
-MAIN_CHANNEL = "@MAIN_CHANNEL"
-SUPPORT_USER = "@YOUR_SUPPORT_USER"
 
-# messages 
-owenerID = 1
-SabteAgahi = '📢' + 'Post a new ad'
-ErtebatBaPoshtibani = '👩‍💻' + 'Contact support'
-RahnamayeRobot = '🌐' + 'Guide'
-YesSendit_posht = '👍' + 'yes, send it'
-NoDontSendit_posht = '👎' + 'no, do not send it'
-password_admin = 'YOUR_PASSWORD'
-bot_id = '@BOT_ID'
-
-##### owner pannel
-users_count = 'Show number of users'
-send_to_all = 'Send message to all users'
-Deactive_bot = 'Block ad submission'
-change_format = 'Change ads format'
-enseraf_as_agahi = 'Cancel'
-global_message = 0
-global_message_id = None
-Bot_ACTIVE_boolian = True
-boolian_money = False
-money_message = None
-mozo_boolian = True
-onvan_boolian = True
-pishnagadiprice_boolian = True
-tozihat_boolian = True
-##### owner pannel
 
 class Users:
     user_count = 0
@@ -344,7 +303,7 @@ def callback_query_handler(update, context):
 
     global MAIN_CHANNEL
     global owenerID
-    global bot_id
+    global BOT_ID
     global boolian_money
     global money_message
     # if user name ok bod
@@ -979,30 +938,20 @@ def text_handler(update, context):
             if user_message == 'enable explanation':
                 tozihat_boolian = True
                 admin_pannel(update, context)
-
-
         ### owner side
 
 
-# Main Function of bot, here we are defining all handlers we require.
 def main():
-    API =  BOT_API
-    updater = Updater(API, use_context=True)
+    updater = Updater(BOT_API, use_context=True)
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", start))
-    # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, text_handler))
     dp.add_handler(MessageHandler(Filters.photo, JPG_handler))
     dp.add_handler(MessageHandler(Filters.document, PDF_handler))
     dp.add_handler(CallbackQueryHandler(callback_query_handler))
 
-    # Start the Bot
     updater.start_polling()
-
-    # Run the bot until you press Ctrl-C or the process receives SIGINT,
-    # SIGTERM or SIGABRT. This should be used most of the time, since
-    # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
 
