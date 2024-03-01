@@ -11,12 +11,12 @@ import json
 
 
 # Parameters
-BOT_API = "BOT_API_TOKEN"
-MAIN_CHANNEL = "@MAIN_CHANNEL_USERNAME"
-SUPPORT_USER = "@SUPPORT_USER_USERNAME"
-BOT_ID = '@BOT_ID'
-ADMIN_PASSWORD = 'YOUR_PASSWORD'
-owenerID = 1 # Don't change this
+BOT_API = "BOT_API_TOKEN" # BOT API TOKEN (get it from BotFather)
+MAIN_CHANNEL = "@MAIN_CHANNEL_USERNAME" # Main channel username (with @) - for posting ads
+SUPPORT_USER = "@SUPPORT_USER_USERNAME" # Support user username (with @) - for contact support
+BOT_ID = '@BOT_ID' # Bot username (with @)
+ADMIN_PASSWORD = 'YOUR_PASSWORD' # Admin password for owner pannel - if you sent it to the bot, you will get access to owner pannel
+OWNER_ID = 1 # Do not change this
 # Parameters
 
 # messages 

@@ -9,6 +9,8 @@ Install the required dependencies using pip as indicated in the following line:
 amin@Maximus$ pip3 install requirements.txt
 ```
 
+After installing the dependencies, please change the content of config.py. Set the `ADMIN_PASSWORD` field, and send it to the bot vai the admin user. The telegram user who sends this string to the bot will be the admin of the bot, and will receive the ads to either accept or reject them.
+
 ## Usage:
 Change the following parameters in the `configs.py`:
 - `BOT_API`: The token of the telegram bot (Get one from Telegram Bot Father)

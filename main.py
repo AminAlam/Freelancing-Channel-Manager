@@ -135,13 +135,13 @@ def usual_check(update, context):
 
 def start(update, context):
     """Send a message when the command /start is issued."""
-    global owenerID
+    global OWNER_ID
     chat_id = update.message.chat_id
     class_id = str(update.message.from_user.id)
     join_boolian = usual_check(update, context)
     # usual start
     if globals()[class_id].requested_agahi == None:
-        if owenerID != chat_id:
+        if OWNER_ID != chat_id:
             context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
             start_message = "Hello, welcome buddy :) "
             context.bot.sendMessage(chat_id=chat_id, text=start_message)
@@ -161,9 +161,9 @@ def build_menu(buttons, n_cols, header_buttons=None, footer_buttons=None):
 
 def enseraf(update, context):
     chat_id = update.message.chat_id
-    global owenerID
+    global OWNER_ID
     global enseraf_as_agahi
-    if chat_id != owenerID:
+    if chat_id != OWNER_ID:
         menu_keyboard = [[enseraf_as_agahi]]
         menu_markup = ReplyKeyboardMarkup(menu_keyboard, one_time_keyboard=True, resize_keyboard=True)
         context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
@@ -172,7 +172,7 @@ def enseraf(update, context):
 
 
 def three_choice(update, context):
-    global owenerID
+    global OWNER_ID
     global SabteAgahi
     global ErtebatBaPoshtibani
     global RahnamayeRobot
@@ -180,7 +180,7 @@ def three_choice(update, context):
         chat_id = update.message.chat_id
     except:
         chat_id = update.effective_chat.id
-    if chat_id != owenerID:
+    if chat_id != OWNER_ID:
         menu_keyboard = [[SabteAgahi], [ErtebatBaPoshtibani], [RahnamayeRobot],["Bot's Developer"]]
         menu_markup = ReplyKeyboardMarkup(menu_keyboard, one_time_keyboard=True, resize_keyboard=True)
         context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
@@ -191,8 +191,8 @@ def poshtibani_func(update, context):
     chat_id = update.message.chat_id
     global YesSendit_posht
     global NoDontSendit_posht
-    global owenerID
-    if (chat_id != owenerID):
+    global OWNER_ID
+    if (chat_id != OWNER_ID):
         menu_keyboard = [[YesSendit_posht], [NoDontSendit_posht]]
         menu_markup = ReplyKeyboardMarkup(menu_keyboard, one_time_keyboard=True, resize_keyboard=True)
         context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
@@ -222,7 +222,7 @@ def PDF_handler(update, context):
     agahi_validate(update, context)
 
 def agahi_validate(update, context, cancel=False):
-    global owenerID
+    global OWNER_ID
     global mozo_boolian
     global onvan_boolian
     global pishnagadiprice_boolian
@@ -235,7 +235,7 @@ def agahi_validate(update, context, cancel=False):
         user_name = 'No ID.'
 
     if cancel == False:
-        context.bot.send_message(text='user name of sender: @'+str(user_name), chat_id=owenerID)
+        context.bot.send_message(text='user name of sender: @'+str(user_name), chat_id=OWNER_ID)
         user_chat_id = str(chat_id)
         agahi_format = ''
         if mozo_boolian:
@@ -264,14 +264,14 @@ def agahi_validate(update, context, cancel=False):
 
         if globals()[class_id].agahi_file_type == 'JPG':
             path_to_file = globals()[class_id].agahi_files
-            context.bot.send_photo(photo=path_to_file, chat_id=owenerID, reply_markup=reply_markup, caption=txt)
+            context.bot.send_photo(photo=path_to_file, chat_id=OWNER_ID, reply_markup=reply_markup, caption=txt)
 
         if globals()[class_id].agahi_file_type == 'PDF':
             path_to_file = globals()[class_id].agahi_files
-            context.bot.send_document(document=path_to_file, chat_id=owenerID, reply_markup=reply_markup, caption=txt)
+            context.bot.send_document(document=path_to_file, chat_id=OWNER_ID, reply_markup=reply_markup, caption=txt)
 
         if globals()[class_id].agahi_file_type == 'text':
-            context.bot.send_message(text=txt, chat_id=owenerID, reply_markup=reply_markup)
+            context.bot.send_message(text=txt, chat_id=OWNER_ID, reply_markup=reply_markup)
         #three_choice(update, context)
     if cancel == True:
         message = 'The ad registration process has stopped.'
@@ -302,7 +302,7 @@ def callback_query_handler(update, context):
     user_chat_id = str(chat_id)
 
     global MAIN_CHANNEL
-    global owenerID
+    global OWNER_ID
     global BOT_ID
     global boolian_money
     global money_message
@@ -317,18 +317,18 @@ def callback_query_handler(update, context):
         if update.callback_query.message.caption != None:
             button_list = [InlineKeyboardButton("Confirmed (with money)!"+ '✅', callback_data="vagozar_shod_tamam"),]
             reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=1))
-            context.bot.edit_message_caption(chat_id=owenerID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
+            context.bot.edit_message_caption(chat_id=OWNER_ID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
                                              caption=update.callback_query.message.caption)
 
         if update.callback_query.message.caption == None:
             button_list = [InlineKeyboardButton("Confirmed (with money)!"+ '✅', callback_data="vagozar_shod_tamam"),]
             reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=1))
-            context.bot.edit_message_text(chat_id=owenerID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
+            context.bot.edit_message_text(chat_id=OWNER_ID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
                                           text=update.callback_query.message.text)
 
         boolian_money = 1
         money_message = [update.callback_query.message,request_number]
-        context.bot.send_message(chat_id=int(owenerID), text='Please send the amount of money you want for this ad')
+        context.bot.send_message(chat_id=int(OWNER_ID), text='Please send the amount of money you want for this ad')
 
     if query[0:15] == "agahi_accepted_" and query[0:26] != 'agahi_accepted_with_money_':
 
@@ -354,7 +354,7 @@ def callback_query_handler(update, context):
                                                         reply_markup=reply_markup, caption=text)
             button_list = [InlineKeyboardButton("Confirmed! " + '✅', callback_data="vagozar_shod_tamam"),]
             reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=1))
-            context.bot.edit_message_caption(chat_id=owenerID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
+            context.bot.edit_message_caption(chat_id=OWNER_ID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
                                              caption=update.callback_query.message.caption)
 
 
@@ -375,7 +375,7 @@ def callback_query_handler(update, context):
                                                    reply_markup=reply_markup)
             button_list = [InlineKeyboardButton("Confirmed! " + '✅', callback_data="vagozar_shod_tamam"),]
             reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=1))
-            context.bot.edit_message_text(chat_id=owenerID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
+            context.bot.edit_message_text(chat_id=OWNER_ID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
                                           text=update.callback_query.message.text)
 
     if query[0:19] == "agahi_not_accepted_":
@@ -388,7 +388,7 @@ def callback_query_handler(update, context):
             context.bot.send_message(chat_id=int(questioner_chat_id), text='Your ad has not been approved!' + '\n' + '\n' + '\n'+ text)
             button_list = [InlineKeyboardButton("Not approved!" + '❎', callback_data="vagozar_shod_tamam"),]
             reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=1))
-            context.bot.edit_message_caption(chat_id=owenerID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
+            context.bot.edit_message_caption(chat_id=OWNER_ID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
                                              caption=update.callback_query.message.caption)
 
         if update.callback_query.message.caption == None:
@@ -400,7 +400,7 @@ def callback_query_handler(update, context):
             context.bot.send_message(chat_id=int(questioner_chat_id), text='Your ad has not been approved!' + '\n' + '\n' + '\n'+ text)
             button_list = [InlineKeyboardButton("Not approved!" + '❎', callback_data="vagozar_shod_tamam"),]
             reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=1))
-            context.bot.edit_message_text(chat_id=owenerID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
+            context.bot.edit_message_text(chat_id=OWNER_ID, reply_markup=reply_markup, message_id=update.callback_query.message.message_id,
                                           text=update.callback_query.message.text)
         ### owner side
     ### owner side
@@ -560,12 +560,12 @@ def callback_query_handler(update, context):
     # if user name == null
 
 def admin_pannel(update, context):
-    global owenerID
+    global OWNER_ID
     global users_count
     global send_to_all
     global Deactive_bot
     global change_format
-    chat_id = owenerID
+    chat_id = OWNER_ID
     menu_keyboard = [[users_count], [send_to_all], [Deactive_bot], [change_format]]
     menu_markup = ReplyKeyboardMarkup(menu_keyboard, one_time_keyboard=True, resize_keyboard=True)
     context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
@@ -573,16 +573,16 @@ def admin_pannel(update, context):
     context.bot.send_message(chat_id=chat_id, reply_markup=menu_markup, text=txt)
 
 def send_all(update, context, message_id=None):
-    global owenerID
+    global OWNER_ID
     for chat_id in Users.chat_ids:
         try:
-            if str(chat_id) != str(owenerID):
-                context.bot.forward_message(chat_id=chat_id, message_id=message_id, from_chat_id=owenerID)
+            if str(chat_id) != str(OWNER_ID):
+                context.bot.forward_message(chat_id=chat_id, message_id=message_id, from_chat_id=OWNER_ID)
         except:
-            x = 1
+            pass
 
 def text_handler(update, context):
-    global owenerID
+    global OWNER_ID
     global SabteAgahi
     global ErtebatBaPoshtibani
     global RahnamayeRobot
@@ -618,7 +618,7 @@ def text_handler(update, context):
                 time.sleep(time_sleep)
 
         if user_message == ADMIN_PASSWORD:
-            owenerID = chat_id
+            OWNER_ID = chat_id
             context.bot.sendMessage(chat_id=chat_id, text='Welcome boss' + '💪')
             admin_pannel(update, context)
 
@@ -795,7 +795,7 @@ def text_handler(update, context):
         if user_message == YesSendit_posht:
             message = globals()[class_id].poshtibani_message
 
-            context.bot.send_message(chat_id=owenerID, text=message)
+            context.bot.send_message(chat_id=OWNER_ID, text=message)
             globals()[class_id].poshtibani_message = None
             message = 'Your message has been sent to support, you will receive a reply as soon as you respond to the same robot.'
             context.bot.send_message(chat_id=chat_id, text=message)
@@ -826,7 +826,7 @@ def text_handler(update, context):
 
         ### owner side
 
-        if chat_id == owenerID:
+        if chat_id == OWNER_ID:
             # answet to customeer
             customer_message = update.message.reply_to_message
             if customer_message is not None:
@@ -844,18 +844,18 @@ def text_handler(update, context):
                 message_agahi = money_message
                 agahi_money(update, context, message_agahi, money)
                 message_agahi = None
-                context.bot.send_message(chat_id=owenerID, text='Payment request sent to customer. As soon as you pay, the ad will be on the channel. ')
+                context.bot.send_message(chat_id=OWNER_ID, text='Payment request sent to customer. As soon as you pay, the ad will be on the channel. ')
 
             if user_message == users_count:
-                context.bot.send_message(chat_id=owenerID, text='Number of users =' + str(Users.user_count))
+                context.bot.send_message(chat_id=OWNER_ID, text='Number of users =' + str(Users.user_count))
             if global_message == 2 and user_message == 'Number of users =':
-                context.bot.send_message(chat_id=owenerID, text='Message sent to all users.')
+                context.bot.send_message(chat_id=OWNER_ID, text='Message sent to all users.')
                 admin_pannel(update, context)
                 send_all(update, context, message_id=global_message_id)
                 global_message = 0
                 global_message_id = None
             if global_message == 2 and user_message == 'No, I gave up.':
-                context.bot.send_message(chat_id=owenerID, text='ok')
+                context.bot.send_message(chat_id=OWNER_ID, text='ok')
                 admin_pannel(update, context)
                 global_message = 0
                 global_message_id = None
@@ -866,21 +866,21 @@ def text_handler(update, context):
                 menu_markup = ReplyKeyboardMarkup(menu_keyboard, one_time_keyboard=True, resize_keyboard=True)
                 context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
                 message ='Send the above message to everyone?'
-                context.bot.send_message(chat_id=owenerID, text=message, reply_markup=menu_markup)
+                context.bot.send_message(chat_id=OWNER_ID, text=message, reply_markup=menu_markup)
 
             if user_message == send_to_all:
                 global_message = 1
-                context.bot.send_message(chat_id=owenerID, text='Please send me the message you want')
+                context.bot.send_message(chat_id=OWNER_ID, text='Please send me the message you want')
 
             # deactiving bot
             if user_message == Deactive_bot:
                 Bot_ACTIVE_boolian = not Bot_ACTIVE_boolian
                 if Bot_ACTIVE_boolian == True:
                     Deactive_bot = 'Block ad submission'
-                    context.bot.send_message(chat_id=owenerID,text='Ads sending enabled')
+                    context.bot.send_message(chat_id=OWNER_ID,text='Ads sending enabled')
                 if Bot_ACTIVE_boolian == False:
                     Deactive_bot = 'Enable ad submission'
-                    context.bot.send_message(chat_id=owenerID,text='Ads sending blocked')
+                    context.bot.send_message(chat_id=OWNER_ID,text='Ads sending blocked')
                 admin_pannel(update, context)
 
             # cahnge agahi format
